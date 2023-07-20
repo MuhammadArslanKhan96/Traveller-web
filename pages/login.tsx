@@ -19,10 +19,10 @@ const Login = () => {
         //eslint-disable-next-line
     }, [UserData?.user])
     return (
-        <div className='min-h-screen flex flex-col gap-y-32 bg-cover pb-40' style={{
+        <div className='min-h-screen   flex flex-col gap-y-12 pb-40 bg-no-repeat bg-cover bg-center' style={{
             backgroundImage: `url(${AuthBg.src})`
         }}>
-            <Navbar color='black' className='bg-white px-6 py-4 lg:px-[8.4rem] text-black' />
+            <Navbar color='black' className='bg-white  px-6 py-7 lg:px-[8.4rem] text-black' />
             <LoginForm />
         </div>
     )

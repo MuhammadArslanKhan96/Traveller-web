@@ -54,7 +54,7 @@ const EditPage = () => {
                     if (valid && departure && arrival && departuretime && returntime && formValues['company-name'] && departure !== arrival && departuretime !== returntime) {
 
                         // Create a reference to 'mountains.jpg'
-                        const mountainsRef = ref(storage, uuid() + '.jpg');
+                        const mountainsRef = ref(storage, uuid() + '.' + image.name.split('.')[1]);
 
                         // 'file' comes from the Blob or File API
                         uploadBytes(mountainsRef, image as Blob).then((snapshot) => {

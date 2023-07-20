@@ -3,6 +3,8 @@ import { FaPlaneArrival, FaPlaneDeparture } from 'react-icons/fa';
 import { MdOutlineSwapHoriz } from 'react-icons/md';
 import dayjs from 'dayjs';
 import { DatePicker } from 'antd';
+import CalenderIcon from '@/assets/calender-icon.svg';
+import Image from 'next/image';
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -50,16 +52,18 @@ const FlightAddBottom = ({ setShowPopup, departure, arrival }: FlightSectionProp
                                 <div className={`flex flex-col justify-center gap-2 ${montserrat.className}`}>
                                     <p className='text-dark text-xs font-medium'>Departure</p>
                                     <div className="flex justify-center items-center gap-1">
+                                        <Image src={CalenderIcon.src} alt='' width={24} height={24} />
                                         <DatePicker name='departuretime' value={dayjs('18 Apr 2023')}
-                                            format="DD-MM-YYYY" className='text-ligher-text text-sm font-medium' />
+                                            format="DD-MM-YYYY" className='text-ligher-text border-none text-sm font-medium' />
                                     </div>
                                 </div>
                                 <div className={`flex flex-col justify-center gap-2 ${montserrat.className}`}>
                                     <p className='text-dark text-xs font-medium'>Return</p>
                                     <div className="flex justify-center items-center gap-1">
+                                        <Image src={CalenderIcon.src} alt='' width={24} height={24} />
                                         <DatePicker name='returntime'
                                             value={dayjs('06 May 2023')}
-                                            format="DD-MM-YYYY" className='text-ligher-text text-sm font-medium' />
+                                            format="DD-MM-YYYY" className='text-ligher-text border-none text-sm font-medium' />
                                     </div>
                                 </div>
                             </div>

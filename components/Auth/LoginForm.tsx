@@ -1,10 +1,11 @@
-import Link from 'next/link'
-import { HiUser } from 'react-icons/hi'
-import axios from 'axios';
-import React, { FormEvent, useContext } from 'react'
-import { auth } from '@/utils/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import { UserContext } from '@/context/UserContext';
+import { auth } from '@/utils/firebase';
+import { Spin } from 'antd';
+import axios from 'axios';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import Link from 'next/link';
+import React, { FormEvent, useContext } from 'react';
+import { HiUser } from 'react-icons/hi';
 
 
 interface FormValues {
@@ -15,6 +16,7 @@ interface FormValues {
 }
 const LoginForm = () => {
     const UserData = useContext(UserContext);
+    const [loading, setLoading] = React.useState(false)
 
 
     function validateAllValues({ email, password }: FormValues) {
@@ -33,6 +35,7 @@ const LoginForm = () => {
 
     async function signInUser({ email, password, role, terms }: FormValues) {
         if (email && password) {
+            setLoading(true);
             await axios.get(`/api/users/get-user?email=${email}&role=${role}`).then(({ data }) => {
                 signInWithEmailAndPassword(auth, email, password)
                     .catch((error) => {
@@ -62,6 +65,7 @@ const LoginForm = () => {
                     content: e?.response?.data,
                 });
             });
+            setLoading(false);
         }
     }
 
@@ -92,11 +96,11 @@ const LoginForm = () => {
                     <p className='text-2xl font-semibold text-primary'>Login to Existing User</p>
                     <div className="flex gap-5">
                         <div className="flex items-center gap-2.5">
-                            <input type="radio" className='text-primary' checked id='user' name="role" value={'User'} />
+                            <input type="radio" className='checked:text-primary' defaultChecked id='user' name="role" value={'User'} />
                             <label htmlFor='user' className='text-dark text-base font-medium'>User</label>
                         </div>
                         <div className="flex items-center gap-2.5">
-                            <input type="radio" className='text-primary' id='flight' name="role" value={'Flight'} />
+                            <input type="radio" className='checked:text-primary' id='flight' name="role" value={'Flight'} />
                             <label htmlFor='flight' className='text-dark text-base font-medium'>Flight</label>
                         </div>
                     </div>
@@ -117,8 +121,12 @@ const LoginForm = () => {
                             <div className='text-primary text-xs font-medium'>Forgot Password?</div>
                         </div>
                     </div>
-                    <button className="flex py-3 px-8 justify-center bg-primary rounded-lg shadow-[0px_15px_20px_0px_rgba(26,151,212,0.20)] text-white items-center gap-1">
-                        <p className='text-base font-semibold'>Login</p>
+                    <button disabled={loading} className="flex py-3 px-8 justify-center bg-primary rounded-lg shadow-[0px_15px_20px_0px_rgba(26,151,212,0.20)] text-white items-center gap-1">
+                        {loading ?
+                            <Spin />
+                            :
+                            <p className='text-base font-semibold'>Login</p>
+                        }
                     </button>
                     <div className='text-ligher-text text-sm font-semibold'>Don&apos;t Have An Account? <Link className='text-primary' href={'/register'}>Create Account</Link></div>
                 </form>

@@ -22,7 +22,7 @@ export default function Home() {
 
 
   const [filterCities, setFilterCities] = React.useState<string>('');
-  let filteredCountries = countries.filter(i => i.toLowerCase().includes(filterCities.toLowerCase()));
+  let filteredCountries = countries.filter(i => (i.toLowerCase().includes(filterCities.toLowerCase()) && !(i === (arrival) || i === (departure))));
   const FlightsData = React.useContext(FlightContext);
 
   let flights = filter ? FlightsData?.flights.filter(i => (i.departure === filter.departure && i.departuretime === filter.departuretime && i.returntime === filter.returntime && i.arrival === filter.arrival)) : FlightsData?.flights;

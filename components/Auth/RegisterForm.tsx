@@ -1,10 +1,11 @@
-import Link from 'next/link'
-import React, { FormEvent, useContext } from 'react'
-import { auth } from '@/utils/firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import axios from 'axios';
-import { UserContext } from '@/context/UserContext';
 import { FlightContext } from '@/context/FlightContext';
+import { UserContext } from '@/context/UserContext';
+import { auth } from '@/utils/firebase';
+import { Spin } from 'antd';
+import axios from 'axios';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import Link from 'next/link';
+import React, { FormEvent, useContext } from 'react';
 
 
 interface FormValues {
@@ -19,6 +20,7 @@ interface FormValues {
 const RegisterForm = () => {
     const UserData = useContext(UserContext);
     const FlightData = useContext(FlightContext);
+    const [loading, setLoading] = React.useState(false)
 
 
     function validateAllValues({ name, email, password, password2, terms }: FormValues) {
@@ -44,6 +46,7 @@ const RegisterForm = () => {
 
     async function signUpUser(formValues: FormValues) {
         if (formValues.email && formValues.password) {
+            setLoading(true);
             createUserWithEmailAndPassword(auth, formValues.email, formValues.password)
                 .then(async () => {
                     // Signed in 
@@ -63,6 +66,7 @@ const RegisterForm = () => {
                         });
                     }
                 });
+            setLoading(false);
         }
     }
 
@@ -93,7 +97,7 @@ const RegisterForm = () => {
                     <p className='text-2xl font-semibold text-primary'>Register for New User</p>
                     <div className="flex gap-5">
                         <div className="flex items-center gap-2.5">
-                            <input type="radio" checked className='text-primary' id='user' name="role" value="User" />
+                            <input type="radio" defaultChecked className='text-primary' id='user' name="role" value="User" />
                             <label htmlFor='user' className='text-dark text-base font-medium'>User</label>
                         </div>
                         <div className="flex items-center gap-2.5">
@@ -123,8 +127,12 @@ const RegisterForm = () => {
                             <label htmlFor="terms" className='text-light-text text-xs'>i agree to the terms of service and privacy policy</label>
                         </div>
                     </div>
-                    <button className="flex py-3 px-8 justify-center bg-primary rounded-lg shadow-[0px_15px_20px_0px_rgba(26,151,212,0.20)] text-white items-center gap-1">
-                        <p className='text-base font-semibold'>Register</p>
+                    <button disabled={loading} className="flex py-3 px-8 justify-center bg-primary rounded-lg shadow-[0px_15px_20px_0px_rgba(26,151,212,0.20)] text-white items-center gap-1">
+                        {loading ?
+                            <Spin />
+                            :
+                            <p className='text-base font-semibold'>Register</p>
+                        }
                     </button>
                     <div className='text-ligher-text text-sm font-semibold'>Already have an account? <Link className='text-primary' href={'/login'}>Login</Link></div>
                 </div>

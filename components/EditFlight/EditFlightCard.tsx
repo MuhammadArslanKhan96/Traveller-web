@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import { BsImages } from 'react-icons/bs'
 import { FaPlaneArrival, FaPlaneDeparture } from 'react-icons/fa';
 import CalenderIcon from '@/assets/calender-icon.svg';
@@ -86,16 +85,18 @@ const BookingSuccessCard = ({ flight, setShowPopup, departure, arrival }: EditCa
                 <div className={`flex flex-col justify-center gap-2 ${montserrat.className}`}>
                     <p className='text-dark text-xs font-medium'>Departure</p>
                     <div className="flex justify-center items-center gap-1">
+                        <Image src={CalenderIcon.src} alt='' width={24} height={24} />
                         <DatePicker name='departuretime' defaultValue={dayjs(flight.departuretime)}
-                            format="DD-MM-YYYY" className='text-ligher-text text-sm font-medium' />
+                            format="DD-MM-YYYY" className='text-ligher-text border-none text-sm font-medium' />
                     </div>
                 </div>
                 <div className={`flex flex-col justify-center gap-2 ${montserrat.className}`}>
                     <p className='text-dark text-xs font-medium'>Return</p>
                     <div className="flex justify-center items-center gap-1">
+                        <Image src={CalenderIcon.src} alt='' width={24} height={24} />
                         <DatePicker name='returntime'
                             defaultValue={dayjs(flight.returntime)}
-                            format="DD-MM-YYYY" className='text-ligher-text text-sm font-medium' />
+                            format="DD-MM-YYYY" className='text-ligher-text border-none text-sm font-medium' />
                     </div>
                 </div>
             </div>

@@ -4,10 +4,12 @@ import heroBg from '@/assets/hero-bg.svg';
 import { Inter, Montserrat } from 'next/font/google'
 import Link from 'next/link';
 import { AiFillRightCircle } from 'react-icons/ai';
+import { UserContext } from '@/context/UserContext';
 
 const inter = Inter({ subsets: ['latin'] })
 const montserrat = Montserrat({ subsets: ['latin'] })
 export default function HeroSection() {
+    const UserData = React.useContext(UserContext);
     return (
         <div style={{
             backgroundImage: `url(${heroBg.src})`
@@ -17,9 +19,9 @@ export default function HeroSection() {
                 <h4 className='text-2xl font-semibold'>Just seconds away from</h4>
                 <h1 className='text-7xl font-bold lg:max-w-[40vw]'>A WORLD OF LUXURY</h1>
                 <p className={`text-lg max-w-[70%] lg:max-w-[30vw] ${inter.className}`}>Book and manage your entire vacation or business trip from flights, private jet charter flights, car rentals, hotels, and excursions with a few clicks.</p>
-                <Link href={'/register'} className='flex bg-primary border border-primary transition-all duration-300 ease-in-out rounded-lg text-white hover:bg-white hover:text-primary  items-center gap-2.5 px-6 py-4'>
+                <Link href={UserData?.user?.email ? '/' : '/register'} className='flex bg-primary border border-primary transition-all duration-300 ease-in-out rounded-lg text-white hover:bg-white hover:text-primary  items-center gap-2.5 px-6 py-4'>
                     <p>Let&apos;s Start now</p>
-                    <AiFillRightCircle />
+                    <AiFillRightCircle size={24} />
                 </Link>
             </div>
         </div>

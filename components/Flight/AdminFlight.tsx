@@ -37,7 +37,19 @@ const AdminFlight = ({ item }: FlightProp) => {
                     <div className='flex absolute top-8 left-0 py-1 px-2 justify-center items-center gap-2.5 rounded-tr-xl bg-primary'>
                         <p className='text-xl font-bold text-white max-lg:text-sm'>{item.bookings.length} Bookings</p>
                     </div>
-                    <Image src={item.image} alt='' className='max-lg:w-[150px] w-full' width={240} height={385} />
+                    <Image src={item.image} alt='' className='max-lg:w-[150px] w-full' width={293} height={385} />
+                </div>
+                <div className="drop-shadow-[0px_12px_24px_rgba(0,0,0,0.07)] relative">
+                    <div className='flex absolute top-8 left-0 py-1 px-2 justify-center items-center gap-2.5 rounded-tr-xl bg-primary'>
+                        <p className='text-xl font-bold text-white max-lg:text-sm'>{item.bookings.length} Bookings</p>
+                    </div>
+                    <Image src={item.image} alt='' className='max-lg:w-[150px] w-full' width={240} height={315} />
+                </div>
+                <div className="drop-shadow-[0px_12px_24px_rgba(0,0,0,0.07)] relative">
+                    <div className='flex absolute top-8 left-0 py-1 px-2 justify-center items-center gap-2.5 rounded-tr-xl bg-primary'>
+                        <p className='text-xl font-bold text-white max-lg:text-sm'>{item.bookings.length} Bookings</p>
+                    </div>
+                    <Image src={item.image} alt='' className='max-lg:w-[150px] w-full' width={240} height={315} />
                 </div>
             </div>
 

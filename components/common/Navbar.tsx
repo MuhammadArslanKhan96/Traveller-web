@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React, { useContext, useEffect } from 'react';
 import logo from '@/assets/logo.svg';
+import logoDark from '@/assets/logo-dark.svg';
 import Link from 'next/link';
 import { HiUser } from 'react-icons/hi'
 import { useRouter } from 'next/router';
@@ -32,10 +33,12 @@ const Navbar = ({ className, color }: NavbarProps) => {
     return (
         <div className={`flex justify-between ` + className}>
             <div className="flex lg:gap-x-16 gap-x-6 items-center">
-                <Link href={'/'}><Image src={logo.src} alt='' className='w-[45px] h-[25px] lg:w-full lg:h-full' width={70} height={43} /></Link>
-                {show && <Link href={'/orders'}>
-                    Orders
-                </Link>}
+                <Link href={'/'}>
+                    <Image src={color === 'black' ? logoDark.src : logo.src} alt='' className='w-[45px] h-[25px] lg:w-full lg:h-full' width={70} height={43} /></Link>
+                {UserData?.user?.email && show &&
+                    <Link href={'/orders'}>
+                        Orders
+                    </Link>}
             </div>
             <div className="flex gap-x-6 items-center">
                 {!UserData?.user ?
