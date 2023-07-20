@@ -20,7 +20,7 @@ const EditPage = () => {
 
 
     const getFlightData = () => {
-        let flight = FlightData?.flights.filter(i => i.email === router.query.id)[0];
+        let flight = FlightData?.flights.filter(i => i.id === router.query.id)[0];
         setFlight(flight);
     }
 
