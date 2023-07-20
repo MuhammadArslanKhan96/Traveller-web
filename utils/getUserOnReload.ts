@@ -15,12 +15,12 @@ export default async function getUserOnReload(
             `/api/users/get-user?role=${role}&email=${user.email}`
           );
           setUser(user2.data);
-        } catch (error) {
+        } catch (error: any) {
           console.log(error?.message);
         }
       }
     });
-  } catch (error) {
+  } catch (error: any) {
     console.log(error?.message);
   }
 }
