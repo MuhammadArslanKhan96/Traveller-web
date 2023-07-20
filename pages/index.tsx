@@ -24,13 +24,22 @@ export default function Home() {
   const [filterCities, setFilterCities] = React.useState<string>('');
   let filteredCountries = countries.filter(i => (i.toLowerCase().includes(filterCities.toLowerCase()) && !(i === (arrival) || i === (departure))));
   const FlightsData = React.useContext(FlightContext);
-
+  let count = 0;
+  let lastUser = '';
   let flights = filter ? FlightsData?.flights.filter(i => (i.departure === filter.departure && i.departuretime === filter.departuretime && i.returntime === filter.returntime && i.arrival === filter.arrival)) : FlightsData?.flights;
   let result = flights?.reduce(function (accObj, currentObj) {
-    accObj[currentObj.user] = accObj[currentObj.user] || [];
-    accObj[currentObj.user].push(currentObj);
+    lastUser = currentObj.user;
+    accObj[currentObj.user + count] = accObj[currentObj.user + count] || [];
+    if (accObj[currentObj.user + count].length <= 3) {
+      accObj[currentObj.user + count].push(currentObj);
+    } else {
+      count++;
+      accObj[currentObj.user + count].push(currentObj);
+    }
     return accObj;
   }, {});
+
+
   return (
     <>
       <HeroSection />
