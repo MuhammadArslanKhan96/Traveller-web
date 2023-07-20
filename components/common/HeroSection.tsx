@@ -10,8 +10,8 @@ const montserrat = Montserrat({ subsets: ['latin'] })
 export default function HeroSection() {
     return (
         <div style={{
-            background: `url(${heroBg.src})`
-        }} className='min-h-screen px-6 lg:px-[8.4rem] flex flex-col gap-y-32 pt-8 pb-40'>
+            backgroundImage: `url(${heroBg.src})`
+        }} className='min-h-screen bg-cover px-6 lg:px-[8.4rem] flex flex-col gap-y-32 pt-8 pb-40'>
             <Navbar className='bg-transparent text-white' color='white' />
             <div className={`flex flex-col text-center items-center lg:items-start lg:text-start gap-y-9 text-white ${montserrat.className} leading-normal`}>
                 <h4 className='text-2xl font-semibold'>Just seconds away from</h4>
