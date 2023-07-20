@@ -26,10 +26,15 @@ export default function Home() {
   const FlightsData = React.useContext(FlightContext);
 
   let flights = filter ? FlightsData?.flights.filter(i => (i.departure === filter.departure && i.departuretime === filter.departuretime && i.returntime === filter.returntime && i.arrival === filter.arrival)) : FlightsData?.flights;
+  let result = flights?.reduce(function (accObj, currentObj) {
+    accObj[currentObj.user] = accObj[currentObj.user] || [];
+    accObj[currentObj.user].push(currentObj);
+    return accObj;
+  }, {});
   return (
     <>
       <HeroSection />
-      <FlightsSection flights={flights} setFilter={setFilter} setShowPopup={setShowPopup} departure={departure} arrival={arrival} />
+      <FlightsSection flights={Object.values(result)} setFilter={setFilter} setShowPopup={setShowPopup} departure={departure} arrival={arrival} />
 
 
       {showPopup && <div className='fixed top-0 min-h-screen flex justify-center items-center w-[99vw] bg-black/70'>
