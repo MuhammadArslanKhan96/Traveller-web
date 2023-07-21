@@ -46,7 +46,6 @@ const RegisterForm = () => {
 
     async function signUpUser(formValues: FormValues) {
         if (formValues.email && formValues.password) {
-            setLoading(true);
             createUserWithEmailAndPassword(auth, formValues.email, formValues.password)
                 .then(async () => {
                     // Signed in 
@@ -65,8 +64,8 @@ const RegisterForm = () => {
                             content: 'Email Already in use!',
                         });
                     }
+                    setLoading(false);
                 });
-            setLoading(false);
         }
     }
 
@@ -74,6 +73,7 @@ const RegisterForm = () => {
     async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
+        setLoading(true);
         const formData = new FormData(e.currentTarget);
         const formValues = Object.fromEntries(formData);
 
@@ -86,6 +86,7 @@ const RegisterForm = () => {
                 type: 'error',
                 content: error?.message,
             });
+            setLoading(false);
         }
     }
 

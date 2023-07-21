@@ -35,7 +35,6 @@ const LoginForm = () => {
 
     async function signInUser({ email, password, role, terms }: FormValues) {
         if (email && password) {
-            setLoading(true);
             await axios.get(`/api/users/get-user?email=${email}&role=${role}`).then(({ data }) => {
                 signInWithEmailAndPassword(auth, email, password).then(() => {
                     if (terms) {
@@ -59,14 +58,15 @@ const LoginForm = () => {
                         }
                     });
 
+                setLoading(false);
             }).catch(e => {
                 console.log(e)
                 UserData?.messageApi.open({
                     type: 'error',
                     content: e?.response?.data,
                 });
+                setLoading(false);
             });
-            setLoading(false);
         }
     }
 
@@ -74,6 +74,7 @@ const LoginForm = () => {
     async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
+        setLoading(true);
         const formData = new FormData(e.currentTarget);
         const formValues = Object.fromEntries(formData);
 
@@ -85,6 +86,7 @@ const LoginForm = () => {
                 type: 'error',
                 content: error?.message,
             });
+            setLoading(false);
         }
     }
     return (
