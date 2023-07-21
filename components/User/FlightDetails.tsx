@@ -1,4 +1,4 @@
-import travelers from '@/assets/users.svg';
+import Travelers from '@/assets/users.svg';
 import { DatePicker } from 'antd';
 import dayjs from 'dayjs';
 import { Montserrat } from 'next/font/google';
@@ -79,7 +79,7 @@ const FlightDetails = ({ setFilter, setShowPopup, departure, arrival, travelers 
                                 <div className={`flex flex-col justify-center gap-2 ${montserrat.className}`}>
                                     <p className='text-dark text-xs font-medium'>Travelers</p>
                                     <div className="flex justify-center text-primary items-center gap-1">
-                                        <Image src={travelers.src} alt='' width={24} height={24} />
+                                        <Image src={Travelers.src} alt='' width={24} height={24} />
                                         <button type='button' onClick={() => handleOpenLocationPopup('travelers')} className='text-ligher-text text-sm font-medium'>{travelers.adult} Adults, {travelers.children} Children</button>
                                     </div>
                                 </div>
