@@ -31,8 +31,9 @@ export default function Home() {
 
   let flights = filter ? FlightsData?.flights.filter(i => (i.departure === filter.departure && i.departuretime === filter.departuretime && i.returntime === filter.returntime && i.arrival === filter.arrival)) : FlightsData?.flights;
   let result = flights?.length ? flights?.reduce(function (accObj, currentObj) {
-    accObj[currentObj.user] = accObj[currentObj.user] || [];
-    accObj[currentObj.user].push(currentObj);
+    accObj[currentObj.user] = accObj[currentObj.user] || { totalBookings: 0, data: [] };
+    accObj[currentObj.user]['totalBookings'] = accObj[currentObj.user]['totalBookings'] + currentObj.bookings.length;
+    accObj[currentObj.user]['data'].push(currentObj);
     return accObj;
   }, {}) : {};
 
