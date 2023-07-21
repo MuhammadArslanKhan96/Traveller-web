@@ -1,11 +1,11 @@
 import Travelers from '@/assets/users.svg';
+import Search from '@/assets/search-icon.svg';
 import { DatePicker } from 'antd';
 import dayjs from 'dayjs';
 import { Montserrat } from 'next/font/google';
 import Image from 'next/image';
 import CalenderIcon from '@/assets/calender-icon.svg';
 import React from 'react';
-import { BsSearch } from 'react-icons/bs';
 import { FaPlaneArrival, FaPlaneDeparture } from 'react-icons/fa';
 import { MdOutlineSwapHoriz } from 'react-icons/md';
 import { FlightContext } from '@/context/FlightContext';
@@ -89,8 +89,8 @@ const FlightDetails = ({ setFilter, setShowPopup, departure, arrival, travelers 
                 </div>
 
 
-                <button type='submit' className='flex justify-center border border-primary transition-all duration-300 ease-in-out  hover:bg-white hover:text-primary h-fit ouline-none  items-center px-8 py-3 gap-2.5 text-white rounded-lg bg-primary shadow-[0px_15px_20px_0px_rgba(26,151,212,0.20)]'>
-                    <BsSearch size={22} />
+                <button type='submit' className='flex justify-center border border-primary h-fit ouline-none  items-center px-8 py-3 gap-2.5 text-white rounded-lg bg-primary shadow-[0px_15px_20px_0px_rgba(26,151,212,0.20)]'>
+                    <Image src={Search.src} alt='' width={22} height={22} />
                     <p className={`text-base font-semibold ${montserrat.className}`}>Search</p>
                 </button>
             </form>
