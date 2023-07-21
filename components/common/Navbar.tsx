@@ -35,8 +35,8 @@ const Navbar = ({ className, color }: NavbarProps) => {
             <div className="flex lg:gap-x-16 gap-x-6 items-center">
                 <Link href={'/'}>
                     <Image src={color === 'black' ? logoDark.src : logo.src} alt='' className='w-[45px] h-[25px] lg:w-full lg:h-full' width={70} height={43} /></Link>
-                {UserData?.user?.email && show &&
-                    <Link href={'/orders'}>
+                {show &&
+                    <Link href={UserData?.user?.email ? '/orders' : '/login'}>
                         Orders
                     </Link>}
             </div>
