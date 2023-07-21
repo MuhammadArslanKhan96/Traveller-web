@@ -53,7 +53,7 @@ const AdminFlight = ({ item }: FlightProps) => {
                         </div>
                         <div className="flex items-center gap-1">
                             <Image src={CalenderIcon.src} alt='' width={24} height={24} />
-                            <p className='text-sm font-medium text-light-text'>{new Date(item.departuretime).getTime() < new Date().getTime() ? dayjs(item.returntime).format('DD/MM/YYYY').toString() : dayjs(item.departuretime).format('DD/MM/YYYY').toString()}</p>
+                            <p className='text-sm font-medium text-light-text'>{new Date(item.departuretime).getTime() < new Date().getTime() ? item.returntime : item.departuretime}</p>
                         </div>
                         <div className="flex items-center gap-1 text-primary">
                             <ImLocation />
