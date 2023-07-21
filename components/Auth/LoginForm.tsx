@@ -37,7 +37,12 @@ const LoginForm = () => {
         if (email && password) {
             setLoading(true);
             await axios.get(`/api/users/get-user?email=${email}&role=${role}`).then(({ data }) => {
-                signInWithEmailAndPassword(auth, email, password)
+                signInWithEmailAndPassword(auth, email, password).then(() => {
+                    if (terms) {
+                        localStorage.setItem('rememberUser', role as string);
+                    }
+                    UserData?.setUser(data);
+                })
                     .catch((error) => {
                         const errorMessage = error.message;
                         if (errorMessage === 'Firebase: Error (auth/wrong-password).') {
@@ -54,10 +59,6 @@ const LoginForm = () => {
                         }
                     });
 
-                if (terms) {
-                    localStorage.setItem('rememberUser', role as string);
-                }
-                UserData?.setUser(data);
             }).catch(e => {
                 console.log(e)
                 UserData?.messageApi.open({
