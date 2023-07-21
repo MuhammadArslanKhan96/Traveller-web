@@ -11,7 +11,7 @@ import { MdOutlineSwapHoriz } from 'react-icons/md';
 import { FlightContext } from '@/context/FlightContext';
 
 const montserrat = Montserrat({ subsets: ['latin'] })
-const FlightDetails = ({ setFilter, setShowPopup, departure, arrival }: any) => {
+const FlightDetails = ({ setFilter, setShowPopup, departure, arrival, travelers }: any) => {
     const FlightData = React.useContext(FlightContext);
     function handleOpenLocationPopup(callback: string) {
         setShowPopup(callback);
@@ -38,7 +38,7 @@ const FlightDetails = ({ setFilter, setShowPopup, departure, arrival }: any) => 
                                     <div className="flex justify-center text-primary items-center gap-1">
                                         <FaPlaneDeparture />
                                         <input type="text" className='hidden' value={departure} name='departure' />
-                                        <button onClick={() => handleOpenLocationPopup('departure')} className='text-ligher-text outline-none text-sm font-medium'>{departure}</button>
+                                        <button type='button' onClick={() => handleOpenLocationPopup('departure')} className='text-ligher-text outline-none text-sm font-medium'>{departure.length > 17 ? departure.slice(0, 17) + '...' : departure}</button>
                                     </div>
                                 </div>
                                 <div className='text-ligher-text'>
@@ -50,7 +50,7 @@ const FlightDetails = ({ setFilter, setShowPopup, departure, arrival }: any) => 
                                     <div className="flex justify-center text-primary items-center gap-1">
                                         <FaPlaneArrival />
                                         <input type="text" className='hidden' value={arrival} name='arrival' />
-                                        <button onClick={() => handleOpenLocationPopup('arrival')} className='text-ligher-text outline-none text-sm font-medium'>{arrival}</button>
+                                        <button type='button' onClick={() => handleOpenLocationPopup('arrival')} className='text-ligher-text outline-none text-sm font-medium'>{arrival.length > 17 ? arrival.slice(0, 17) + '...' : arrival}</button>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@ const FlightDetails = ({ setFilter, setShowPopup, departure, arrival }: any) => 
                                     <p className='text-dark text-xs font-medium'>Travelers</p>
                                     <div className="flex justify-center text-primary items-center gap-1">
                                         <Image src={travelers.src} alt='' width={24} height={24} />
-                                        <p className='text-ligher-text text-sm font-medium'>2 Adults, 3 Children</p>
+                                        <button type='button' onClick={() => handleOpenLocationPopup('travelers')} className='text-ligher-text text-sm font-medium'>{travelers.adult} Adults, {travelers.children} Children</button>
                                     </div>
                                 </div>
                             </div>

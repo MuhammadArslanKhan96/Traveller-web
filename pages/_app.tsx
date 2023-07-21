@@ -4,6 +4,8 @@ import '@/styles/globals.css'
 import getUserOnReload from '@/utils/getUserOnReload';
 import { message } from 'antd';
 import axios from 'axios';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { db } from "@/utils/firebase";
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react'
@@ -52,6 +54,18 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     getUser()
     getFlights()
+
+    const q = collection(db, "Flights");
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      let newDocs = snapshot.docs.map(i => ({ ...i.data(), id: i.id }));
+      if (newDocs.length) {
+        setFlights(newDocs);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    }
   }, [])
 
   return (

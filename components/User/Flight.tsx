@@ -12,8 +12,9 @@ import { useRouter } from 'next/router';
 
 interface FlightProp {
     item?: any;
+    travelers?: any;
 }
-const Flight = ({ item }: FlightProp) => {
+const Flight = ({ item, travelers }: FlightProp) => {
     const [active, setActive] = React.useState({ id: item[0].id, image: item[0].image });
     const FlightsData = React.useContext(FlightContext);
     const UserData = React.useContext(UserContext);
@@ -46,7 +47,7 @@ const Flight = ({ item }: FlightProp) => {
         }
         try {
             await axios.put(`/api/flights/update-flight?id=` + flight?.id, { bookings: [...flight?.bookings, UserData?.user?.email] })
-            FlightsData?.setFlights([...FlightsData?.flights.filter(i => i.id !== flight?.id), { ...flight, bookings: [...flight?.bookings, UserData?.user?.email] }])
+            FlightsData?.setFlights([...FlightsData?.flights.filter(i => i.id !== flight?.id), { ...flight, bookings: [...flight?.bookings, { user: UserData?.user?.email, travelers }] }])
             UserData?.messageApi?.open({
                 type: 'success',
                 content: "Booking success!"
@@ -101,7 +102,7 @@ const Flight = ({ item }: FlightProp) => {
                 </div>
                 <div className="flex flex-col gap-8 max-lg:items-center">
                     <div className='text-light-text break-words text-lg max-w-[300px]'>Lörem ipsum fotobomba minynat. Göra en pudel masar fadogon heteroktigt holatt. </div>
-                    <button onClick={handleBook} disabled={flight?.bookings.includes(UserData?.user?.email)} className="flex disabled:cursor-not-allowed w-fit items-center px-6 py-4 items center text-white border hover:text-primary border-primary gap-2 5 rounded-lg bg-primary hover:bg-white">
+                    <button onClick={handleBook} disabled={flight?.bookings.filter((i: any) => i.user === UserData?.user?.email).length} className="flex disabled:cursor-not-allowed w-fit items-center px-6 py-4 items center text-white border hover:text-primary border-primary gap-2 5 rounded-lg bg-primary hover:bg-white">
                         <h2 className='text-base font-semibold'>Book Now</h2>
                         <AiFillRightCircle />
                     </button>

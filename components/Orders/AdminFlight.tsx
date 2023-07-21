@@ -7,6 +7,7 @@ import { FlightContext } from '@/context/FlightContext';
 import { UserContext } from '@/context/UserContext';
 import axios from 'axios';
 import Link from 'next/link';
+import dayjs from 'dayjs';
 
 interface FlightProps {
     item: any;
@@ -19,8 +20,11 @@ const AdminFlight = ({ item }: FlightProps) => {
 
     async function deleteFlight(id: string) {
         try {
-            await axios.delete(`/api/flights/delete-flight?id=` + id);
-            FlightsData?.setFlights(FlightsData?.flights.filter(i => i.id !== id))
+            await axios.put(`/api/flights/update-flight?id=` + id, {
+                bookings: item.bookings.filter((i: any) => (i.user !== UserData?.user?.email))
+
+            });
+            FlightsData?.setFlights([...FlightsData?.flights.filter(i => i.id !== id), { ...item, bookings: item.bookings.filter((i: any) => (i.user !== UserData?.user?.email)) }])
         } catch (error) {
             UserData?.messageApi.open({
                 type: 'error',
@@ -49,7 +53,7 @@ const AdminFlight = ({ item }: FlightProps) => {
                         </div>
                         <div className="flex items-center gap-1">
                             <Image src={CalenderIcon.src} alt='' width={24} height={24} />
-                            <p className='text-sm font-medium text-light-text'>{new Date(item.departuretime).getTime() < new Date().getTime() ? item.returntime : item.departuretime}</p>
+                            <p className='text-sm font-medium text-light-text'>{new Date(item.departuretime).getTime() < new Date().getTime() ? dayjs(item.returntime).format('DD/MM/YYYY').toString() : dayjs(item.departuretime).format('DD/MM/YYYY').toString()}</p>
                         </div>
                         <div className="flex items-center gap-1 text-primary">
                             <ImLocation />
@@ -59,16 +63,14 @@ const AdminFlight = ({ item }: FlightProps) => {
                 </div>
                 <div className="flex flex-col gap-8 max-lg:items-center">
                     <div className='text-light-text break-words text-lg'>Lörem ipsum fotobomba minynat. Göra en pudel masar fadogon heteroktigt holatt. </div>
-                    {UserData?.user?.email === item.user && <>
-                        <div className='flex gap-4'>
-                            <Link href={"/edit?id=" + item.id} className="flex w-fit items-center px-6 py-4 items center text-white border hover:text-primary border-primary gap-2 5 rounded-lg bg-primary hover:bg-white">
-                                <h2 className='text-base font-semibold'>Edit</h2>
-                            </Link>
-                            <button onClick={() => deleteFlight(item.id)} className="flex w-fit items-center px-6 py-4 items center text-white border hover:text-primary border-primary gap-2 5 rounded-lg bg-primary hover:bg-white">
-                                <h2 className='text-base font-semibold'>Delete</h2>
-                            </button>
-                        </div>
-                    </>}
+                    <div className='flex gap-4'>
+                        <Link href={"/edit-booking?id=" + item.id} className="flex w-fit items-center px-6 py-4 items center text-white border hover:text-primary border-primary gap-2 5 rounded-lg bg-primary hover:bg-white">
+                            <h2 className='text-base font-semibold'>Edit</h2>
+                        </Link>
+                        <button onClick={() => deleteFlight(item.id)} className="flex w-fit items-center px-6 py-4 items center text-white border hover:text-primary border-primary gap-2 5 rounded-lg bg-primary hover:bg-white">
+                            <h2 className='text-base font-semibold'>Delete</h2>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
