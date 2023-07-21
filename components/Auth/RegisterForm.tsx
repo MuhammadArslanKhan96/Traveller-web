@@ -124,7 +124,7 @@ const RegisterForm = () => {
                         </div>
                         <div className="flex items-center gap-3">
                             <input type="checkbox" name="terms" id="terms" className='rounded-sm border border-primary bg-primary' />
-                            <label htmlFor="terms" className='text-light-text text-xs'>i agree to the terms of service and privacy policy</label>
+                            <label htmlFor="terms" className='text-light-text text-xs'>I agree to the terms of service and privacy policy</label>
                         </div>
                     </div>
                     <button disabled={loading} className="flex py-3 px-8 justify-center bg-primary rounded-lg shadow-[0px_15px_20px_0px_rgba(26,151,212,0.20)] text-white items-center gap-1">

@@ -12,6 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState<User | null>(null);
   const [flights, setFlights] = useState<any[]>([]);
   const [flightsCompanies, setFlightsCompanies] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -30,6 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
     setFlights(flights.data);
     const flightsCompanies = await axios.get(`/api/users/get-users`);
     setFlightsCompanies(flightsCompanies.data.filter((i: User) => i.role === 'Flight'));
+    setLoading(false);
   }
 
 
@@ -55,7 +57,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <UserContext.Provider value={{ user, setUser, messageApi }}>
       {contextHolder}
-      <FlightContext.Provider value={{ flights, setFlights, flightsCompanies, setFlightsCompanies }}>
+      <FlightContext.Provider value={{ flights, setFlights, flightsCompanies, setFlightsCompanies, loading, setLoading }}>
         <Component {...pageProps} />
       </FlightContext.Provider>
     </UserContext.Provider>

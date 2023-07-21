@@ -48,7 +48,6 @@ const EditPage = () => {
             const formData = new FormData(e.currentTarget);
             const formValues = Object.fromEntries(formData);
             const { image, departure, arrival, departuretime, returntime } = formValues;
-            console.log(typeof formValues.image);
             if (typeof image !== 'string') {
                 isValidImageURL(URL.createObjectURL(image as Blob | MediaSource), async function (valid: boolean) {
                     if (valid && departure && arrival && departuretime && returntime && formValues['company-name'] && departure !== arrival && departuretime !== returntime) {

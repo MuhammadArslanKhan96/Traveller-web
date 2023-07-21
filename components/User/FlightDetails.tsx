@@ -8,15 +8,18 @@ import React from 'react';
 import { BsSearch } from 'react-icons/bs';
 import { FaPlaneArrival, FaPlaneDeparture } from 'react-icons/fa';
 import { MdOutlineSwapHoriz } from 'react-icons/md';
+import { FlightContext } from '@/context/FlightContext';
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 const FlightDetails = ({ setFilter, setShowPopup, departure, arrival }: any) => {
+    const FlightData = React.useContext(FlightContext);
     function handleOpenLocationPopup(callback: string) {
         setShowPopup(callback);
     }
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        FlightData?.setLoading?.(true);
         const formData = new FormData(e.currentTarget);
         const formValues = Object.fromEntries(formData);
         setFilter(formValues);
