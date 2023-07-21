@@ -1,10 +1,11 @@
 import { Montserrat } from 'next/font/google';
 import { FaPlaneArrival, FaPlaneDeparture } from 'react-icons/fa';
 import { MdOutlineSwapHoriz } from 'react-icons/md';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { DatePicker } from 'antd';
 import CalenderIcon from '@/assets/calender-icon.svg';
 import Image from 'next/image';
+import { useState } from 'react';
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -14,6 +15,8 @@ interface FlightSectionProps {
     arrival: string;
 }
 const FlightAddBottom = ({ setShowPopup, departure, arrival }: FlightSectionProps) => {
+    const [departuretime, setdeparturetime] = useState<Dayjs | null | undefined>(dayjs());
+    const [returntime, setreturntime] = useState<Dayjs | null | undefined>(dayjs().add(1, 'day'));
 
     function handleOpenLocationPopup(callback: string) {
         setShowPopup(callback);
@@ -53,7 +56,12 @@ const FlightAddBottom = ({ setShowPopup, departure, arrival }: FlightSectionProp
                                     <p className='text-dark text-xs font-medium'>Departure</p>
                                     <div className="flex justify-center items-center gap-1">
                                         <Image src={CalenderIcon.src} alt='' width={24} height={24} />
-                                        <DatePicker name='departuretime' value={dayjs('18 Apr 2023')}
+                                        <DatePicker name='departuretime' onChange={newVal => {
+                                            if (returntime?.isBefore(newVal)) {
+                                                setreturntime(newVal?.add(1, 'day'))
+                                            }
+                                            setdeparturetime(newVal)
+                                        }} value={departuretime}
                                             format="DD-MM-YYYY" className='text-ligher-text border-none text-sm font-medium' />
                                     </div>
                                 </div>
@@ -62,7 +70,7 @@ const FlightAddBottom = ({ setShowPopup, departure, arrival }: FlightSectionProp
                                     <div className="flex justify-center items-center gap-1">
                                         <Image src={CalenderIcon.src} alt='' width={24} height={24} />
                                         <DatePicker name='returntime'
-                                            value={dayjs('06 May 2023')}
+                                            value={returntime} onChange={newVal => setreturntime(newVal)} disabledDate={d => !d || d.isBefore(departuretime)}
                                             format="DD-MM-YYYY" className='text-ligher-text border-none text-sm font-medium' />
                                     </div>
                                 </div>

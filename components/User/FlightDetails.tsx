@@ -12,6 +12,9 @@ import { FlightContext } from '@/context/FlightContext';
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 const FlightDetails = ({ setFilter, setShowPopup, departure, arrival, travelers }: any) => {
+    const [departuretime, setdeparturetime] = React.useState<any>(dayjs());
+    const [returntime, setreturntime] = React.useState<any>(dayjs().add(1, 'day'));
+
     const FlightData = React.useContext(FlightContext);
     function handleOpenLocationPopup(callback: string) {
         setShowPopup(callback);
@@ -60,7 +63,12 @@ const FlightDetails = ({ setFilter, setShowPopup, departure, arrival, travelers 
                                     <p className='text-dark text-xs font-medium'>Departure</p>
                                     <div className="flex justify-center items-center gap-1">
                                         <Image src={CalenderIcon.src} alt='' width={24} height={24} />
-                                        <DatePicker name='departuretime' defaultValue={dayjs("18 Apr 2023")}
+                                        <DatePicker name='departuretime' onChange={newVal => {
+                                            if (returntime?.isBefore(newVal)) {
+                                                setreturntime(newVal?.add(1, 'day'))
+                                            }
+                                            setdeparturetime(newVal)
+                                        }} value={departuretime}
                                             format="DD-MM-YYYY" className='text-ligher-text border-none text-sm font-medium' />
                                     </div>
                                 </div>
@@ -69,7 +77,7 @@ const FlightDetails = ({ setFilter, setShowPopup, departure, arrival, travelers 
                                     <div className="flex justify-center items-center gap-1">
                                         <Image src={CalenderIcon.src} alt='' width={24} height={24} />
                                         <DatePicker name='returntime'
-                                            defaultValue={dayjs("06 May 2023")}
+                                            value={returntime} onChange={newVal => setreturntime(newVal)} disabledDate={d => !d || d.isBefore(departuretime)}
                                             format="DD-MM-YYYY" className='text-ligher-text border-none text-sm font-medium' />
                                     </div>
                                 </div>
