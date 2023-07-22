@@ -37,11 +37,12 @@ const AddFlightDetail = ({ setShowPopup, departure, arrival }: FlightSectionProp
                         getDownloadURL(snapshot.ref).then(async (url) => {
                             let newFlight = { ...formValues, user: UserData?.user?.email, createdAt: new Date(), updatedAt: new Date(), image: url, bookings: [] };
                             await axios.post(`/api/flights/add-flight`, newFlight);
-                            FlightsData?.setFlights([...FlightsData?.flights, newFlight]);
+                            FlightsData?.setLoading?.(true);
                             UserData?.messageApi.open({
                                 type: 'success',
                                 content: 'Flight Added!',
                             });
+                            FlightsData?.getFlights();
                         })
                     });
 
