@@ -8,7 +8,6 @@ interface FlightContextType {
   setFlightsCompanies?: (val: User[]) => void;
   loading?: boolean;
   setLoading?: (val: boolean) => void;
-  getFlights?: any;
 }
 
 export const FlightContext = createContext<FlightContextType | null>(null);

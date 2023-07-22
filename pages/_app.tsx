@@ -71,7 +71,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <UserContext.Provider value={{ user, setUser, messageApi }}>
       {contextHolder}
-      <FlightContext.Provider value={{ flights, setFlights, flightsCompanies, setFlightsCompanies, loading, setLoading, getFlights }}>
+      <FlightContext.Provider value={{ flights, setFlights, flightsCompanies, setFlightsCompanies, loading, setLoading }}>
         <Component {...pageProps} />
       </FlightContext.Provider>
     </UserContext.Provider>
