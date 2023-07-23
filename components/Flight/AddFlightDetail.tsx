@@ -35,7 +35,7 @@ const AddFlightDetail = ({ setShowPopup, departure, arrival }: FlightSectionProp
                     // 'file' comes from the Blob or File API
                     uploadBytes(mountainsRef, image as Blob).then((snapshot) => {
                         getDownloadURL(snapshot.ref).then(async (url) => {
-                            let newFlight = { ...formValues, user: UserData?.user?.email, createdAt: new Date(), updatedAt: new Date(), image: url, bookings: [], id: FlightsData?.flights?.length ? FlightsData?.flights?.length + 1 : 1 };
+                            let newFlight = { ...formValues, user: UserData?.user?.email, createdAt: new Date(), updatedAt: new Date(), image: url, bookings: [], id: uuid() };
                             await axios.post(`/api/flights/add-flight`, newFlight);
                             FlightsData?.setFlights?.([...FlightsData?.flights, newFlight]);
                             UserData?.messageApi.open({
