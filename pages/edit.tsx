@@ -65,7 +65,7 @@ const EditPage = () => {
                             getDownloadURL(snapshot.ref).then(async (url) => {
                                 let newFlight = { ...formValues, updatedAt: new Date(), image: url };
                                 await axios.put(`/api/flights/update-flight?id=` + router.query.id, newFlight);
-                                FlightData?.setFlights([...FlightData?.flights.filter(i => i.id !== router.query.id), newFlight]);
+                                FlightData?.setLoading?.(true);
                                 router.push(`/flight`);
                             })
                         });
@@ -81,7 +81,7 @@ const EditPage = () => {
             } else {
                 let newFlight = { ...formValues, updatedAt: new Date(), image: flight?.image };
                 await axios.put(`/api/flights/update-flight?id=` + router.query.id, newFlight);
-                FlightData?.setFlights([...FlightData?.flights.filter(i => i.id !== router.query.id), newFlight]);
+                FlightData?.setLoading?.(true);
                 router.push(`/flight`);
             }
 
