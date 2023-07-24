@@ -11,12 +11,11 @@ export default function AdminFlightList() {
     let flights = FlightsData?.flights.filter(i => i.user === UserData?.user?.email);
     let result = flights?.reduce(function (accObj, currentObj) {
         accObj[currentObj.user + count] = accObj[currentObj.user + count] || [];
-        if (accObj[currentObj.user + count].length <= 3) {
-            accObj[currentObj.user + count].push(currentObj);
-        } else {
+        if (accObj[currentObj.user + count].length === 3) {
             count++;
-            accObj[currentObj.user + count].push(currentObj);
+            accObj[currentObj.user + count] = accObj[currentObj.user + count] || [];
         }
+        accObj[currentObj.user + count].push(currentObj);
         return accObj;
     }, {});
     return (
