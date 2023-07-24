@@ -19,13 +19,14 @@ interface EditCard {
 
 const BookingSuccessCard = ({ flight, setShowPopup, departure, arrival }: EditCard) => {
     const [image, setImage] = React.useState(flight.image);
+    const supportedTypes = ['image/jpeg', 'image/png', 'image/jpg']
     const [companyName, setCompanyName] = React.useState(flight['company-name']);
     let ref = React.useRef<any>(null)
 
 
     function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
         let file = e.target?.files?.[0];
-        if (file) {
+        if (file && supportedTypes.includes(file.type)) {
             setImage(URL.createObjectURL(file));
         }
     }
@@ -51,7 +52,7 @@ const BookingSuccessCard = ({ flight, setShowPopup, departure, arrival }: EditCa
                     </div>
                     <button type='button' onClick={() => ref.current!.click()} className="flex justify-center hover:bg-primary hover:text-white transition-all duration-300 ease-in-out w-fit items-center gap-1.5 rounded-lg border border-stroke text-primary px-5 py-3">
                         <BsImages />
-                        <input ref={ref} onChange={handleImageChange} type="file" name="image" id='imageElement' className='hidden' />
+                        <input accept='image/*' ref={ref} onChange={handleImageChange} type="file" name="image" id='imageElement' className='hidden' />
                         <p className='text-sm font-semibold'>Browse</p>
                     </button>
                 </div>
