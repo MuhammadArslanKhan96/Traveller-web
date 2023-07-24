@@ -28,12 +28,16 @@ export default function Home() {
   const [filterCities, setFilterCities] = React.useState<string>('');
   let filteredCountries = countries.filter(i => (i.toLowerCase().includes(filterCities.toLowerCase())));
   const FlightsData = React.useContext(FlightContext);
-
+  let count = 0;
   let flights = filter ? FlightsData?.flights.filter(i => (i.departure === filter.departure && i.departuretime === filter.departuretime && i.returntime === filter.returntime && i.arrival === filter.arrival)) : FlightsData?.flights;
   let result = flights?.length ? flights?.reduce(function (accObj, currentObj) {
-    accObj[currentObj.user] = accObj[currentObj.user] || { totalBookings: 0, data: [] };
-    accObj[currentObj.user]['totalBookings'] = accObj[currentObj.user]['totalBookings'] + currentObj.bookings.length;
-    accObj[currentObj.user]['data'].push(currentObj);
+    accObj[currentObj.user + count] = accObj[currentObj.user + count] || { totalBookings: 0, data: [] };
+    if (accObj[currentObj.user + count]['data'].length === 3) {
+      count++;
+      accObj[currentObj.user + count] = accObj[currentObj.user + count] || { totalBookings: 0, data: [] };
+    }
+    accObj[currentObj.user + count]['totalBookings'] = accObj[currentObj.user + count]['totalBookings'] + currentObj.bookings.length;
+    accObj[currentObj.user + count]['data'].push(currentObj);
     return accObj;
   }, {}) : {};
 
