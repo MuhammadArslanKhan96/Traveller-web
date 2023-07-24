@@ -44,11 +44,14 @@ const BookingSuccessCard = ({ flight }: EditCard) => {
         }
     }
 
+    function setShowPopup(val: boolean) {
+        console.log(val);
+    }
 
     return (
         <div className='bg-white flex gap-y-12 flex-col justify-center p-10 lg:p-14 rounded-xl'>
             <p className='text-primary text-2xl lg:text-4xl font-bold'>Edit Flight Booking</p>
-            <NumberOfPeople travelers={travelers} selectValue={handleSave} />
+            <NumberOfPeople setShowPopup={setShowPopup} travelers={travelers} selectValue={handleSave} />
         </div>
     )
 }
