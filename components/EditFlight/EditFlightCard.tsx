@@ -62,7 +62,7 @@ const BookingSuccessCard = ({ flight, setShowPopup, departure, arrival }: EditCa
                     <div className="flex justify-center text-primary items-center gap-1">
                         <FaPlaneDeparture />
                         <input type="text" className='hidden' value={departure} name='departure' />
-                        <button onClick={() => handleOpenLocationPopup('departure')} className='text-ligher-text outline-none text-sm font-medium'>{departure.length > 17 ? departure.slice(0, 17) + '...' : departure}</button>
+                        <button type='button' onClick={() => handleOpenLocationPopup('departure')} className='text-ligher-text outline-none text-sm font-medium'>{departure.length > 17 ? departure.slice(0, 17) + '...' : departure}</button>
                     </div>
                 </div>
                 <div className='text-ligher-text'>
@@ -74,7 +74,7 @@ const BookingSuccessCard = ({ flight, setShowPopup, departure, arrival }: EditCa
                     <div className="flex justify-center text-primary items-center gap-1">
                         <FaPlaneArrival />
                         <input type="text" className='hidden' value={arrival} name='arrival' />
-                        <button onClick={() => handleOpenLocationPopup('arrival')} className='text-ligher-text outline-none text-sm font-medium'>{arrival.length > 17 ? arrival.slice(0, 17) + '...' : arrival}</button>
+                        <button type='button' onClick={() => handleOpenLocationPopup('arrival')} className='text-ligher-text outline-none text-sm font-medium'>{arrival.length > 17 ? arrival.slice(0, 17) + '...' : arrival}</button>
                     </div>
                 </div>
             </div>

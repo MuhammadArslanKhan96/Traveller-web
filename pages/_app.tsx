@@ -53,7 +53,6 @@ export default function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     getUser()
-    getFlights()
 
     const q = collection(db, "Flights");
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -67,6 +66,13 @@ export default function App({ Component, pageProps }: AppProps) {
       unsubscribe();
     }
   }, [])
+
+
+  useEffect(() => {
+    if (loading) {
+      getFlights()
+    }
+  }, [loading])
 
   return (
     <UserContext.Provider value={{ user, setUser, messageApi }}>
