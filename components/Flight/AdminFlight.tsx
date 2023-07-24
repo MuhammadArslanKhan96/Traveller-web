@@ -27,6 +27,7 @@ const AdminFlight = ({ item }: FlightProp) => {
 
     async function deleteFlight(id: string) {
         setLoading(true);
+        FlightsData?.setLoading?.(true);
         try {
             await axios.delete(`/api/flights/delete-flight?id=` + id);
             FlightsData?.setFlights(FlightsData?.flights.filter(i => i.id !== id))

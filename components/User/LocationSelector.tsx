@@ -1,3 +1,4 @@
+import useOutside from '@/hooks/useOutside';
 import React from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { ImLocation } from 'react-icons/im'
@@ -7,11 +8,14 @@ interface LocationSelectorProps {
     filterCities: string;
     setFilterCities: (val: string) => void;
     filteredCountries: string[];
+    setShowPopup: (val: boolean) => void;
 }
 
-const LocationSelector = ({ selectValue, filterCities, setFilterCities, filteredCountries }: LocationSelectorProps) => {
+const LocationSelector = ({ setShowPopup, selectValue, filterCities, setFilterCities, filteredCountries }: LocationSelectorProps) => {
+    const ref = React.useRef(null);
+    useOutside(ref, setShowPopup)
     return (
-        <div className="flex justify-center flex-col bg-white py-5 lg:min-w-[460px] rounded-3xl border border-stroke  shadow-[0px_12px_24px_0px_rgba(0,0,0,0.07)]">
+        <div ref={ref} className="flex justify-center flex-col bg-white py-5 lg:min-w-[460px] rounded-3xl border border-stroke  shadow-[0px_12px_24px_0px_rgba(0,0,0,0.07)]">
             <div className="flex pb-2.5 px-10  items-center">
                 <div className="flex text-primary items-center gap-2 rounded-lg border border-stroke py-3 px-5">
                     <AiOutlineSearch />

@@ -9,6 +9,7 @@ import React from 'react';
 import { FaPlaneArrival, FaPlaneDeparture } from 'react-icons/fa';
 import { MdOutlineSwapHoriz } from 'react-icons/md';
 import { FlightContext } from '@/context/FlightContext';
+import { UserContext } from '@/context/UserContext';
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 const FlightDetails = ({ setFilter, setShowPopup, departure, arrival, travelers }: any) => {
@@ -16,16 +17,25 @@ const FlightDetails = ({ setFilter, setShowPopup, departure, arrival, travelers 
     const [returntime, setreturntime] = React.useState<any>(dayjs().add(1, 'day'));
 
     const FlightData = React.useContext(FlightContext);
+    const UserData = React.useContext(UserContext);
     function handleOpenLocationPopup(callback: string) {
         setShowPopup(callback);
     }
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        FlightData?.setLoading?.(true);
         const formData = new FormData(e.currentTarget);
         const formValues = Object.fromEntries(formData);
+        if (departure === arrival) {
+            UserData?.messageApi.open({
+                type: 'error',
+                content: "Flying from and to can't be same!"
+            });
+            return;
+        };
+        FlightData?.setLoading?.(true);
         setFilter(formValues);
+
     }
 
 

@@ -1,16 +1,19 @@
+import useOutside from '@/hooks/useOutside';
 import { Spin } from 'antd';
 import React from 'react'
 
 interface NumberOfPeopleProps {
     travelers: any;
     selectValue: (val: any) => void;
+    setShowPopup: (val: boolean) => void;
 }
 
 
-const NumberOfPeople = ({ travelers, selectValue }: NumberOfPeopleProps) => {
+const NumberOfPeople = ({ setShowPopup, travelers, selectValue }: NumberOfPeopleProps) => {
     const [currentTraveler, setCurrentTraveler] = React.useState(travelers);
     const [loading, setLoading] = React.useState(false);
-
+    const ref = React.useRef(null);
+    useOutside(ref, setShowPopup)
 
     const handleSave = () => {
         setLoading(true);
@@ -26,7 +29,7 @@ const NumberOfPeople = ({ travelers, selectValue }: NumberOfPeopleProps) => {
         setCurrentTraveler((pre: any) => ({ ...pre, [type]: pre[type] - 1 }))
     }
     return (
-        <div className="bg-white px-2 lg:px-8 py-5 rounded-xl flex-col items-center gap-7 flex">
+        <div ref={ref} className="bg-white px-2 lg:px-8 py-5 rounded-xl flex-col items-center gap-7 flex">
             <div className="justify-center items-center gap-7 flex max-lg:flex-col">
                 <div className=" gap-2.5 flex">
                     <div className="flex-col justify-center gap-2 flex">
