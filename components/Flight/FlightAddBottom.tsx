@@ -2,7 +2,7 @@ import { Montserrat } from 'next/font/google';
 import { FaPlaneArrival, FaPlaneDeparture } from 'react-icons/fa';
 import { MdOutlineSwapHoriz } from 'react-icons/md';
 import dayjs, { Dayjs } from 'dayjs';
-import { DatePicker } from 'antd';
+import { DatePicker, Spin } from 'antd';
 import CalenderIcon from '@/assets/calender-icon.svg';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -12,9 +12,10 @@ const montserrat = Montserrat({ subsets: ['latin'] })
 interface FlightSectionProps {
     setShowPopup: (val: string) => void;
     departure: string;
+    loading: boolean;
     arrival: string;
 }
-const FlightAddBottom = ({ setShowPopup, departure, arrival }: FlightSectionProps) => {
+const FlightAddBottom = ({ loading, setShowPopup, departure, arrival }: FlightSectionProps) => {
     const [departuretime, setdeparturetime] = useState<Dayjs | null | undefined>(dayjs());
     const [returntime, setreturntime] = useState<Dayjs | null | undefined>(dayjs().add(1, 'day'));
 
@@ -80,8 +81,12 @@ const FlightAddBottom = ({ setShowPopup, departure, arrival }: FlightSectionProp
                 </div>
 
 
-                <button className='flex justify-center hover:bg-white hover:border-primary h-fit ouline-none border hover:text-primary transition-all duration-300 ease-in-out items-center px-8 py-3 gap-2.5 text-white rounded-lg bg-primary shadow-[0px_15px_20px_0px_rgba(26,151,212,0.20)]'>
-                    <p className={`text-base font-semibold ${montserrat.className}`}>Add</p>
+                <button disabled={loading} className='flex btn justify-center hover:bg-white hover:border-primary h-fit ouline-none border hover:text-primary transition-all duration-300 ease-in-out items-center px-8 py-3 gap-2.5 text-white rounded-lg bg-primary shadow-[0px_15px_20px_0px_rgba(26,151,212,0.20)]'>
+                    {
+                        loading ? <Spin /> :
+                            <p className={`text-base font-semibold ${montserrat.className}`}>Add</p>
+
+                    }
                 </button>
             </div>
         </div>

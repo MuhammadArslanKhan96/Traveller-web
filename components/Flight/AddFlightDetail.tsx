@@ -18,11 +18,12 @@ interface FlightSectionProps {
 const AddFlightDetail = ({ setShowPopup, departure, arrival }: FlightSectionProps) => {
     const UserData = useContext(UserContext);
     const FlightsData = useContext(FlightContext);
+    const [loading, setLoading] = React.useState(false);
 
     const handleSubmit = async (e: any) => {
         try {
             e.preventDefault();
-
+            setLoading(true)
             const formData = new FormData(e.currentTarget);
             const formValues = Object.fromEntries(formData);
             const { image, departure, arrival, departuretime, returntime } = formValues;
@@ -42,11 +43,13 @@ const AddFlightDetail = ({ setShowPopup, departure, arrival }: FlightSectionProp
                                 type: 'success',
                                 content: 'Flight Added!',
                             });
+                            setLoading(false)
                         })
                     });
 
 
                 } else {
+                    setLoading(false)
                     UserData?.messageApi.open({
                         type: 'error',
                         content: 'Fill all the required fields!',
@@ -54,6 +57,7 @@ const AddFlightDetail = ({ setShowPopup, departure, arrival }: FlightSectionProp
                 }
             })
         } catch (error) {
+            setLoading(false)
             console.log(error)
         }
     }
@@ -62,7 +66,7 @@ const AddFlightDetail = ({ setShowPopup, departure, arrival }: FlightSectionProp
         <>
             <form onSubmit={handleSubmit}>
                 <FlightAddTop />
-                <FlightAddBottom setShowPopup={setShowPopup} departure={departure} arrival={arrival} />
+                <FlightAddBottom loading={loading} setShowPopup={setShowPopup} departure={departure} arrival={arrival} />
             </form>
         </>
     )

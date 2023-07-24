@@ -1,6 +1,7 @@
 import CalenderIcon from '@/assets/calender-icon.svg';
 import { FlightContext } from '@/context/FlightContext';
 import { UserContext } from '@/context/UserContext';
+import { Spin } from 'antd';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -14,6 +15,7 @@ interface FlightProp {
 
 const AdminFlight = ({ item }: FlightProp) => {
     const [active, setActive] = React.useState(item[0].id);
+    const [loading, setLoading] = React.useState(false);
     const FlightsData = React.useContext(FlightContext);
     const UserData = React.useContext(UserContext);
 
@@ -24,10 +26,13 @@ const AdminFlight = ({ item }: FlightProp) => {
     let flight = getItem(active);
 
     async function deleteFlight(id: string) {
+        setLoading(true);
         try {
             await axios.delete(`/api/flights/delete-flight?id=` + id);
             FlightsData?.setFlights(FlightsData?.flights.filter(i => i.id !== id))
+            setLoading(false);
         } catch (error) {
+            setLoading(false);
             UserData?.messageApi.open({
                 type: 'error',
                 content: 'Something Went Wrong while trying to delete!',
@@ -79,8 +84,10 @@ const AdminFlight = ({ item }: FlightProp) => {
                         <Link href={"/edit?id=" + flight.id} className="flex min-w-[120px] items-center py-4 justify-center text-white border hover:text-primary border-primary gap-2 5 rounded-lg bg-primary hover:bg-white">
                             <h2 className='text-base font-semibold'>Edit</h2>
                         </Link>
-                        <button onClick={() => deleteFlight(flight.id)} className="flex min-w-[120px] items-center py-4 justify-center text-white border hover:text-primary border-primary gap-2 5 rounded-lg bg-primary hover:bg-white">
-                            <h2 className='text-base font-semibold'>Delete</h2>
+                        <button disabled={loading} onClick={() => deleteFlight(flight.id)} className="btn flex min-w-[120px] items-center py-4 justify-center text-white border hover:text-primary border-primary gap-2 5 rounded-lg bg-primary hover:bg-white">
+                            {loading ? <Spin /> :
+                                <h2 className='text-base font-semibold'>Delete</h2>
+                            }
                         </button>
                     </div>
                 </div>
