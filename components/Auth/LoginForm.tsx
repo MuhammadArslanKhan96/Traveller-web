@@ -33,13 +33,13 @@ const LoginForm = () => {
     }
 
 
-    async function signInUser({ email, password, role, terms }: FormValues) {
+    async function signInUser({ email, password, role }: FormValues) {
         if (email && password) {
             await axios.get(`/api/users/get-user?email=${email}&role=${role}`).then(({ data }) => {
                 signInWithEmailAndPassword(auth, email, password).then(() => {
-                    if (terms) {
-                        localStorage.setItem('rememberUser', role as string);
-                    }
+                    // if (terms) {
+                    localStorage.setItem('rememberUser', role as string);
+                    // }
                     UserData?.setUser(data);
                 })
                     .catch((error) => {
