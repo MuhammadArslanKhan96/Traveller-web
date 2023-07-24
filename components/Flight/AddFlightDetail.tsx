@@ -28,7 +28,16 @@ const AddFlightDetail = ({ setShowPopup, departure, arrival }: FlightSectionProp
             const formValues = Object.fromEntries(formData);
             const { image, departure, arrival, departuretime, returntime } = formValues;
             isValidImageURL(URL.createObjectURL(image as Blob | MediaSource), async function (valid: boolean) {
-                if (valid && departure && arrival && departuretime && returntime && formValues['company-name'] && departure !== arrival && departuretime !== returntime) {
+                if (valid && departure && arrival && departuretime && returntime && formValues['company-name'] && departuretime !== returntime) {
+                    if (departure === arrival) {
+
+                        setLoading(false)
+                        UserData?.messageApi.open({
+                            type: 'error',
+                            content: 'Flying from and to cannot be same!',
+                        });
+                        return;
+                    }
                     let newImage = image as any;
                     // Create a reference to 'mountains.jpg'
                     const mountainsRef = ref(storage, uuid() + '.' + newImage.name.split('.')[1]);
