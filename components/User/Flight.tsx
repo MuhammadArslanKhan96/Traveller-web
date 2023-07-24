@@ -96,7 +96,7 @@ const Flight = ({ item, travelers }: FlightProp) => {
                         </div>
                         <div className="flex items-center gap-1 text-primary">
                             <ImLocation />
-                            <p className='text-sm font-medium text-light-text'>{new Date(flight?.departuretime).getTime() < new Date().getTime() ? flight?.arrive : flight?.departure}</p>
+                            <p className='text-sm font-medium text-light-text'>{new Date(flight?.departuretime).getTime() < new Date().getTime() ? (flight?.arrive.length > 17 ? flight?.arrive.slice(0, 17) + '...' : flight?.arrive) : (flight?.departure.length > 17 ? flight?.departure.slice(0, 17) + '...' : flight?.departure)}</p>
                         </div>
                     </div>
                 </div>
