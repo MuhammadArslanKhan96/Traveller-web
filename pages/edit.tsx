@@ -12,6 +12,10 @@ import axios from 'axios';
 import LocationSelector from '@/components/User/LocationSelector';
 
 const EditPage = () => {
+    const [filterCities, setFilterCities] = React.useState<string>('');
+    const [showPopup, setShowPopup] = React.useState<string | boolean>('');
+    const [departure, setDeparture] = React.useState('Dubai (DXB)');
+    const [arrival, setArrival] = React.useState('Sharjah (SHJ)');
     const UserData = React.useContext(UserContext);
     const router = useRouter();
     const [flight, setFlight] = React.useState('');
@@ -21,6 +25,8 @@ const EditPage = () => {
     const getFlightData = () => {
         let flight = FlightData?.flights.filter(i => i.id === router.query.id)[0];
         setFlight(flight);
+        setDeparture(flight.departure)
+        setArrival(flight.arrival)
     }
 
     React.useEffect(() => {
@@ -87,11 +93,6 @@ const EditPage = () => {
             });
         }
     }
-
-    const [filterCities, setFilterCities] = React.useState<string>('');
-    const [showPopup, setShowPopup] = React.useState<string | boolean>('');
-    const [departure, setDeparture] = React.useState('Dubai (DXB)');
-    const [arrival, setArrival] = React.useState('Sharjah (SHJ)');
 
     let filteredCountries = countries.filter(i => i.toLowerCase().includes(filterCities.toLowerCase()));
 
