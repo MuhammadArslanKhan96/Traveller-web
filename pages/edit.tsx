@@ -18,7 +18,7 @@ const EditPage = () => {
     const [arrival, setArrival] = React.useState('Sharjah (SHJ)');
     const UserData = React.useContext(UserContext);
     const router = useRouter();
-    const [flight, setFlight] = React.useState('');
+    const [flight, setFlight] = React.useState<any>('');
     const FlightData = React.useContext(FlightContext);
 
 
@@ -79,7 +79,7 @@ const EditPage = () => {
                     }
                 })
             } else {
-                let newFlight = { ...formValues, updatedAt: new Date() };
+                let newFlight = { ...formValues, updatedAt: new Date(), image: flight?.image };
                 await axios.put(`/api/flights/update-flight?id=` + router.query.id, newFlight);
                 FlightData?.setFlights([...FlightData?.flights.filter(i => i.id !== router.query.id), newFlight]);
                 router.push(`/flight`);
