@@ -41,20 +41,19 @@ const AdminFlight = ({ item }: FlightProp) => {
         }
     }
 
-    if (!flight || !flight?.bookings) return;
     return (
         <div className='flex items-center max-lg:flex-col gap-9'>
             <div className="flex items-center lg:max-w-[600px] max-sm:flex-wrap max-sm:justify-center">
                 <div className="drop-shadow-[0px_12px_24px_rgba(0,0,0,0.07)] relative">
                     <div className='flex absolute top-8 left-0 py-1 px-2 justify-center items-center gap-2.5 rounded-tr-xl bg-primary'>
-                        <p className='text-xl font-bold text-white max-lg:text-sm'>{flight.bookings.length} Bookings</p>
+                        <p className='text-xl font-bold text-white max-lg:text-sm'>{flight?.bookings?.length || 0} Bookings</p>
                     </div>
                     <Image src={flight.image} alt='' className='max-lg:w-[150px] w-full' width={293} height={385} />
                 </div>
                 {item.length > 1 && item.filter((i: any) => i.id !== active).map((item: any, idx: number) => (
                     <div key={idx} onClick={() => setActive(item.id)} className="drop-shadow-[0px_12px_24px_rgba(0,0,0,0.07)] cursor-pointer relative">
                         <div className='flex absolute top-8 left-0 py-1 px-2 justify-center items-center gap-2.5 rounded-tr-xl bg-primary'>
-                            <p className='text-xl font-bold text-white max-lg:text-sm'>{item.bookings.length} Bookings</p>
+                            <p className='text-xl font-bold text-white max-lg:text-sm'>{item?.bookings?.length || 0} Bookings</p>
                         </div>
                         <Image src={item.image} alt='' className='max-lg:w-[150px] h-full max-w-full' width={240} height={315} />
                     </div>

@@ -5,11 +5,12 @@ import { BsImages } from 'react-icons/bs'
 const FlightAddTop = () => {
     const [image, setImage] = useState('');
     let ref = React.useRef<any>(null)
-
+    const supportedTypes = ['image/jpeg', 'image/png', 'image/jpg']
 
     function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
         let file = e.target?.files?.[0];
-        if (file) {
+        if (file && supportedTypes.includes(file.type)) {
+            console.log(file.type)
             setImage(URL.createObjectURL(file));
         }
     }
@@ -29,7 +30,7 @@ const FlightAddTop = () => {
                     </div>
                     <button type='button' onClick={() => ref.current!.click()} className="flex justify-center hover:bg-primary hover:text-white transition-all duration-300 ease-in-out w-fit items-center gap-1.5 rounded-lg border border-stroke text-primary px-5 py-3">
                         <BsImages />
-                        <input ref={ref} onChange={handleImageChange} type="file" name="image" id='imageElement' className='hidden' />
+                        <input accept='image/*' ref={ref} onChange={handleImageChange} type="file" name="image" id='imageElement' className='hidden' />
                         <p className='text-sm font-semibold'>Browse</p>
                     </button>
                 </div>
