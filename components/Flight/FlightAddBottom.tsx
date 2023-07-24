@@ -62,7 +62,7 @@ const FlightAddBottom = ({ setShowPopup, departure, arrival }: FlightSectionProp
                                             }
                                             setdeparturetime(newVal)
                                         }} value={departuretime}
-                                            format="DD-MM-YYYY" className='text-ligher-text border-none text-sm font-medium' />
+                                            format="DD/MM/YYYY" className='text-ligher-text border-none text-sm font-medium' />
                                     </div>
                                 </div>
                                 <div className={`flex flex-col justify-center gap-2 ${montserrat.className}`}>
@@ -71,7 +71,7 @@ const FlightAddBottom = ({ setShowPopup, departure, arrival }: FlightSectionProp
                                         <Image src={CalenderIcon.src} alt='' width={24} height={24} />
                                         <DatePicker name='returntime'
                                             value={returntime} onChange={newVal => setreturntime(newVal)} disabledDate={d => !d || d.isBefore(departuretime)}
-                                            format="DD-MM-YYYY" className='text-ligher-text border-none text-sm font-medium' />
+                                            format="DD/MM/YYYY" className='text-ligher-text border-none text-sm font-medium' />
                                     </div>
                                 </div>
                             </div>

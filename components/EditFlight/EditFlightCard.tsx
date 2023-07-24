@@ -7,6 +7,7 @@ import { MdOutlineSwapHoriz } from 'react-icons/md';
 import Image from 'next/image';
 import { DatePicker } from 'antd';
 import dayjs from 'dayjs';
+import { returnDate } from '@/utils/stringToDate';
 const montserrat = Montserrat({ subsets: ['latin'] })
 
 interface EditCard {
@@ -20,6 +21,7 @@ const BookingSuccessCard = ({ flight, setShowPopup, departure, arrival }: EditCa
     const [image, setImage] = React.useState(flight.image);
     const [companyName, setCompanyName] = React.useState(flight['company-name']);
     let ref = React.useRef<any>(null)
+
 
 
     function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -86,8 +88,8 @@ const BookingSuccessCard = ({ flight, setShowPopup, departure, arrival }: EditCa
                     <p className='text-dark text-xs font-medium'>Departure</p>
                     <div className="flex justify-center items-center gap-1">
                         <Image src={CalenderIcon.src} alt='' width={24} height={24} />
-                        <DatePicker name='departuretime' defaultValue={dayjs(flight.departuretime)}
-                            format="DD-MM-YYYY" className='text-ligher-text border-none text-sm font-medium' />
+                        <DatePicker name='departuretime' defaultValue={dayjs(returnDate(flight.departuretime))}
+                            format="DD/MM/YYYY" className='text-ligher-text border-none text-sm font-medium' />
                     </div>
                 </div>
                 <div className={`flex flex-col justify-center gap-2 ${montserrat.className}`}>
@@ -95,8 +97,8 @@ const BookingSuccessCard = ({ flight, setShowPopup, departure, arrival }: EditCa
                     <div className="flex justify-center items-center gap-1">
                         <Image src={CalenderIcon.src} alt='' width={24} height={24} />
                         <DatePicker name='returntime'
-                            defaultValue={dayjs(flight.returntime)}
-                            format="DD-MM-YYYY" className='text-ligher-text border-none text-sm font-medium' />
+                            defaultValue={dayjs(returnDate(flight.returntime))}
+                            format="DD/MM/YYYY" className='text-ligher-text border-none text-sm font-medium' />
                     </div>
                 </div>
             </div>
