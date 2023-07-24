@@ -41,7 +41,7 @@ const AdminFlight = ({ item }: FlightProp) => {
         }
     }
 
-
+    if (!flight || !flight?.bookings) return;
     return (
         <div className='flex items-center max-lg:flex-col gap-9'>
             <div className="flex items-center lg:max-w-[600px] max-sm:flex-wrap max-sm:justify-center">
