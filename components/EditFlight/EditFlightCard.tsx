@@ -23,7 +23,6 @@ const BookingSuccessCard = ({ flight, setShowPopup, departure, arrival }: EditCa
     let ref = React.useRef<any>(null)
 
 
-
     function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
         let file = e.target?.files?.[0];
         if (file) {
